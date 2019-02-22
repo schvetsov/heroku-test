@@ -10,7 +10,33 @@ app.listen(port, function () {
 
 const express = require('express')
 const app = express()
+var MongoClient = require('mongodb').MongoClient;
 var port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => res.send('Hello World from Heroku!'))
+//app.get('/', (req, res) => {res.send('Hello World from Heroku!')})
+
+var fullname = '';
+var phone = '';
+var userEmail = '';
+
+var url =`mongodb://authUser:123456cd@ds263493.mlab.com:63493/authrn`;
+
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("authrn");
+    dbo.collection("users").findOne({"username": "schvetsov"}, { projection: {_id: 0}}, function(err, result) {
+        if (err) throw err;
+        fullname = result.fullname;
+        phone = result.phone;
+        userEmail = result.email;
+        db.close();
+    });
+});
+
+app.get('/', (req, res) => 
+
+    res.send(fullname)
+
+)
+
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
