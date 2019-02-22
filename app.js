@@ -35,7 +35,7 @@ MongoClient.connect(url, function(err, db) {
 
 app.get('/', (req, res) => 
 
-    res.send(fullname)
+    res.send("Hi " + fullname)
 
 )
 
