@@ -19,7 +19,7 @@ var fullname = '';
 var phone = '';
 var userEmail = '';
 
-var url =`mongodb://authUser:123456cd@ds263493.mlab.com:63493/authrn`;
+var url =`mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@ds263493.mlab.com:63493/authrn`;
 
 MongoClient.connect(url, function(err, db) {
     if (err) throw err;
